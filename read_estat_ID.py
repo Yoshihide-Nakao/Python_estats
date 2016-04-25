@@ -1,5 +1,5 @@
 # -*- coding=utf-8 -*-
-# ver 2.0
+# ver 1.0
 
 import json
 from urllib.request import urlopen
@@ -15,7 +15,8 @@ field_code = 'うなぎのかば焼き'
 # python2ではurllib.quote
 field_code = quote_plus(field_code, encoding="utf-8")
 
-#e-statにアクセスするためのIDをセットする。
+# ファイルに保存しているIDをセットする。
+# ファイルには”appId=アプリケーションID”の形式で記述
 with open('data/app_id.txt', encoding='utf-8') as a_file:
     for a_line in a_file:
         app_id = a_line
@@ -41,6 +42,5 @@ print('======================================================================')
 print(resp['GET_STATS_LIST']['DATALIST_INF']['NUMBER'])
 
 resp_list = resp['GET_STATS_LIST']['DATALIST_INF']['TABLE_INF']
-# “Normalize” semi-structured JSON data into a flat table
 result = json_normalize(resp_list)
 result.to_excel('data/Stat_ID.xlsx', sheet_name='Stat')
